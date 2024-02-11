@@ -1,0 +1,143 @@
+basePath: /
+definitions:
+  models.Item:
+    properties:
+      createdAt:
+        type: string
+      description:
+        type: string
+      id:
+        type: integer
+      itemCode:
+        type: string
+      orderID:
+        type: integer
+      quantity:
+        type: integer
+      updatedAt:
+        type: string
+    type: object
+  models.Order:
+    properties:
+      createdAt:
+        type: string
+      customerName:
+        type: string
+      id:
+        type: integer
+      items:
+        items:
+          $ref: '#/definitions/models.Item'
+        type: array
+      orderedAt:
+        type: string
+      updatedAt:
+        type: string
+    type: object
+host: localhost:8080
+info:
+  contact:
+    email: soberkoder@swagger.io
+    name: API Support
+  description: Thisi s a simple service for Manage Order
+  license:
+    name: Apache 2.0
+    url: http://ww.apache.org/
+  title: Order API
+  version: "1.0"
+paths:
+  /orders:
+    get:
+      consumes:
+      - application/json
+      description: Get list of all order
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Get list
+      tags:
+      - orders
+    post:
+      consumes:
+      - application/json
+      description: Post details of order corresponding to the input Id
+      parameters:
+      - description: create order
+        in: body
+        name: models.Order
+        required: true
+        schema:
+          $ref: '#/definitions/models.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Post details for a given Id
+      tags:
+      - orders
+    put:
+      consumes:
+      - application/json
+      description: Update details of order corresponding to the input Id
+      parameters:
+      - description: update order
+        in: body
+        name: models.Order
+        required: true
+        schema:
+          $ref: '#/definitions/models.Order'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Update details for a given Id
+      tags:
+      - orders
+  /orders/{orderID}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete order corresponding to the param Id
+      parameters:
+      - description: ID for the order
+        in: path
+        name: Id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: '{''message'': ''Order has been deleted''}'
+      summary: Delete order for a given Id
+      tags:
+      - orders
+    get:
+      consumes:
+      - application/json
+      description: Get details of one order
+      parameters:
+      - description: ID for the order
+        in: path
+        name: Id
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Order'
+      summary: Get details
+      tags:
+      - orders
+swagger: "2.0"
